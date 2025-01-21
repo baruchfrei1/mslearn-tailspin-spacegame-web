@@ -19,20 +19,6 @@ jobs:
       with:
         dotnet-version: '8.x'
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
-
-    - name: Install npm dependencies
-      run: npm install
-
-    - name: Compile Sass assets
-      run: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'
-
-    - name: Run Gulp tasks
-      run: npx gulp
-
     - name: Write build info
       run: echo "${{ github.workflow }}, ${{ github.run_id }}, ${{ github.run_number }}" > Tailspin.SpaceGame.Web/wwwroot/buildinfo.txt
 
