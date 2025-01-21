@@ -33,7 +33,7 @@ jobs:
         dotnet publish ./Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj --no-build --configuration Release --output ${{ github.workspace }}/artifacts/Release
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: drop
         path: ${{ github.workspace }}/artifacts/Release
