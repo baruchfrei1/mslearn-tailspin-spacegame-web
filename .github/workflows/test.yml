@@ -1,3 +1,4 @@
+name: Test Actions
 on: [push]
 
 jobs:
@@ -17,3 +18,40 @@ jobs:
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
+  build:
+    name: Build the Web Application
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.x'
+    - name: Write build info
+      run: echo "${{ github.workflow }}, ${{ github.run_id }}, ${{ github.run_number }}" > Tailspin.SpaceGame.Web/wwwroot/buildinfo.txt
+    - name: Restore project dependencies
+      uses: ./.github/actions/dotnet-cli
+      id: restore
+      with:
+        command: 'restore'
+        project: './Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj'
+    - name: Build the project
+      uses: ./.github/actions/dotnet-cli
+      id: build
+      with:
+        command: 'build'
+        project: './Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj'
+        args: '--no-restore --configuration Release'
+    - name: Publish the project
+      uses: ./.github/actions/dotnet-cli
+      id: publish
+      with:
+        command: 'publish'
+        project: './Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj'
+        args: '--no-build --configuration Release --output ${{ github.workspace }}/artifacts/Release'
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: drop
+        path: ${{ github.workspace }}/artifacts/Release

@@ -1,0 +1,19 @@
+name: 'Dotnet CLI'
+description: 'wrapper around the dotnet cli'
+inputs:
+  command:  # id of input
+    description: 'Comand to run'
+    required: true
+    default: 'build'
+  project:  # id of input
+    description: 'Path to project'
+    required: true
+    default: './'
+  args:  # id of input
+    description: 'Additional arguments'
+    required: true
+    default: ''
+  
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
