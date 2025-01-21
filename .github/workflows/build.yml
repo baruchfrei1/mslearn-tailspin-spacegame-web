@@ -23,14 +23,14 @@ jobs:
       run: echo "${{ github.workflow }}, ${{ github.run_id }}, ${{ github.run_number }}" > Tailspin.SpaceGame.Web/wwwroot/buildinfo.txt
 
     - name: Restore project dependencies
-      run: dotnet restore .\Tailspin.SpaceGame.Web\Tailspin.SpaceGame.Web.csproj
+      run: dotnet restore ./Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj
 
     - name: Build the project
-      run: dotnet build .\Tailspin.SpaceGame.Web\Tailspin.SpaceGame.Web.csproj --no-restore --configuration Release
+      run: dotnet build ./Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj --no-restore --configuration Release
 
     - name: Publish the project
       run: |
-        dotnet publish .\Tailspin.SpaceGame.Web\Tailspin.SpaceGame.Web.csproj --no-build --configuration Release --output ${{ github.workspace }}/artifacts/Release
+        dotnet publish ./Tailspin.SpaceGame.Web/Tailspin.SpaceGame.Web.csproj --no-build --configuration Release --output ${{ github.workspace }}/artifacts/Release
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
