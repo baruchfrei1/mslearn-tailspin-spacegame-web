@@ -7,7 +7,8 @@ try {
   const project = core.getInput('project');
   const args = core.getInput('args');
   const dotnetCommand = `dotnet ${command} ${project} ${args}`;
-  exec(command, (error, stdout, stderr) => {
+  console.log(`Running command: ${dotnetCommand}`);
+  exec(dotnetCommand, (error, stdout, stderr) => {
     if (error) {
       core.setFailed(`Command failed: ${error.message}`);
       return;
