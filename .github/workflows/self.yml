@@ -1,4 +1,4 @@
-name: Build Web Application
+name: Self - Build Web Application
 
 on:
   push:
